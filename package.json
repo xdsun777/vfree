@@ -1,5 +1,5 @@
 {
-  "name": "rspack-vue3-template",
+  "name": "vfree",
   "author": "xdsun777",
   "description": "A template for Rspack + Vue3",
   "version": "1.0.0",
@@ -20,6 +20,9 @@
     "wasm:build": "wasm-pack build --target web --out-dir pkg --dev --out-name rs_wasm",
     "dev:serve": "rspack serve --mode=development --config=./config/rspack.dev.config.mjs",
     "dev:build": "rspack build --mode=development --config=./config/rspack.dev.config.mjs",
+    "android:dev": "cargo tauri android dev",
+    "android:build": "cargo tauri android build",
+    "tauri":"cargo tauri",
     "prod:serve": "rspack serve --mode=production --config=./config/rspack.prod.config.mjs",
     "prod:build": "wasm-pack build --target web --out-dir pkg --release && set RSPACK_PROFILE=ALL && rspack build --mode=production --config=./config/rspack.prod.config.mjs"
   },
