@@ -3,6 +3,7 @@
 .idea
 .vscode
 gen
+*.jks*
 # See https://help.github.com/articles/ignoring-files/
 # Logs
 logs
