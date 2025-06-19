@@ -1,4 +1,4 @@
-use rust_rspack_template::add;
+use vfree_web::add;
 
 #[test]
 fn test() {

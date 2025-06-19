@@ -1,0 +1,13 @@
+# Lock files
+*.lock
+*.log
+*.json
+*re
+*.rs
+*.toml
+
+dist
+node_modules
+target
+src-tauri
+pkg

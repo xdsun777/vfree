@@ -1,12 +1,9 @@
 mod rsapi;
 
 use wasm_bindgen::prelude::*;
-#[wasm_bindgen]
-pub fn add(left: i32, right: i32) -> i32 {
-    left + right
-}
+use crate::rsapi::utils::{rs_log, LogValue};
 
 #[wasm_bindgen(start)]
-fn run() {
-    rsapi::utils::rs_log(rsapi::utils::LogValue::Str("Hello from Rust!".to_string()));
+fn run(){
+    rs_log(LogValue::Str("初始化运行脚本".to_string()));
 }

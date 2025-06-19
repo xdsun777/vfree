@@ -2,17 +2,17 @@ import path, { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { rspack } from '@rspack/core';
 import { VueLoaderPlugin } from 'vue-loader';
-import { log } from 'node:console';
+import { RsdoctorRspackPlugin } from '@rsdoctor/rspack-plugin';
 
 const __dirname = path.join(dirname(fileURLToPath(import.meta.url)), '../');
-log('rspack.base.config.mjs', __dirname);
+console.log('rspack.base.config.mjs', __dirname);
 
 export default {
     name: 'base',
     target: 'web',
     context: __dirname,
     entry: {
-        page: path.join(__dirname, './src/index.js'),
+        page: path.join(__dirname, './src/main.js'),
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -24,22 +24,35 @@ export default {
     },
     resolve: {
         alias: {
-            "@": path.resolve(__dirname, './src'),
-            "@components": path.resolve(__dirname, './src/components'),
-            "@assets": path.resolve(__dirname, './assets'),
-            "@wasm-pkg": path.resolve(__dirname, './pkg'),
-        }
+            '@': path.resolve(__dirname, './src'),
+            '@assets': path.resolve(__dirname, './src/assets'),
+            '@components': path.resolve(__dirname, './src/components'),
+            '@views': path.resolve(__dirname, './src/views'),
+            '@router': path.resolve(__dirname, './src/router'),
+            '@store': path.resolve(__dirname, './src/store'),
+            '@apis': path.resolve(__dirname, './src/apis'),
+            '@utils': path.resolve(__dirname, './src/utils'),
+            '@wasm-pkg': path.resolve(__dirname, './pkg'),
+        },
     },
     plugins: [
         new rspack.HtmlRspackPlugin({
-            template: path.resolve(__dirname, './src/index.html'),
-            // filename: 'index.html',
+            template: path.resolve(__dirname, './public/index.html'),
         }),
         new VueLoaderPlugin(),
+        new rspack.DefinePlugin({
+            // 传入插件选项
+            __VUE_OPTIONS_API__: 'true',
+            __VUE_PROD_DEVTOOLS__: 'true',
+            __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 'true',
+        }),
+        process.env.RSDOCTOR &&
+            new RsdoctorRspackPlugin({
+                // 插件选项
+            }),
     ],
     module: {
         rules: [
-
             {
                 test: /\.(png|svg|jpg|wasm)$/,
                 type: 'asset/resource',
@@ -58,43 +71,44 @@ export default {
                     {
                         loader: 'builtin:lightningcss-loader',
                         options: {
-                            targets: 'ie 10',
+                            targets: ['chrome >= 87', 'edge >= 88', '> 0.5%'],
                         },
                     },
+                    'postcss-loader',
                 ],
             },
             {
                 test: /\.(jsx|js)$/,
                 use: {
-                    loader: "builtin:swc-loader",
+                    loader: 'builtin:swc-loader',
                     options: {
                         // Enable source map
                         sourceMap: true,
-                        target: "es5",
+                        target: 'es5',
                         jsc: {
                             parser: {
-                                syntax: "ecmascript",
+                                syntax: 'ecmascript',
                                 jsx: true,
                             },
                             preserveAllComments: false,
                         },
                     },
                 },
-                type: "javascript/auto",
+                type: 'javascript/auto',
             },
         ],
     },
     devServer: {
-        allowedHosts: [
-            '.localhost',
-        ],
+        allowedHosts: ['.localhost'],
     },
     //调试：该选项用于控制 Source Map 的生成行为。
     devtool: 'source-map',
     // 性能提示
     performance: {
         assetFilter: (assetFilename) => {
-            return assetFilename.endsWith('.js') || assetFilename.endsWith('.css');
+            return (
+                assetFilename.endsWith('.js') || assetFilename.endsWith('.css')
+            );
         },
         hints: false,
         maxEntrypointSize: 400000,
@@ -107,7 +121,7 @@ export default {
         //开启之后，将尽可能输出符合 ECMAScript 语法的代码。例如，使用 import() 加载 chunk，使用 ESM exports 等等。
         outputModule: false,
         //开启懒编译，rspack 会在编译时将所有的 chunk 都标记为懒加载。
-        lazyCompilation: true,
-        // css: true,
+        lazyCompilation: false,
+        css: true,
     },
 };

@@ -1,5 +1,5 @@
 [package]
-name = "rust-rspack-template"
+name = "vfree-web"
 version = "0.1.0"
 edition = "2024"
 authors = ["xdsun777 <charmgo@qq.com>"]
