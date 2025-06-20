@@ -2,6 +2,9 @@
 .swc/
 .idea
 .vscode
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
 gen
 *.jks*
 # See https://help.github.com/articles/ignoring-files/
