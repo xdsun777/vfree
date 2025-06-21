@@ -11,21 +11,28 @@ function tauriInvoke() {
         return undefined;
     }
 }
-// if('__TAURI_INTERNALS__' in window){
-//     invoke('test').then((res)=> {
-//         console.log(res)
-//     })
-//     invoke('greet',{'name':'张三'}).then((res)=> {
-//         console.log(res)
-//     })
-//
-//     let name = '张三'
-//     async function rs_greet(){
-//         return  await invoke('greet',{name})
-//     }
-//     rs_greet().then((res)=>{
-//         console.log(res)
-//     })
-// }
+if('__TAURI_INTERNALS__' in window){
+    invoke('test').then((res)=> {
+        console.log(res)
+    })
+    invoke('greet',{'name':'张三'}).then((res)=> {
+        console.log(res)
+    })
+
+    let name = '张三'
+    async function rs_greet(){
+        return  await invoke('greet',{name})
+    }
+    rs_greet().then((res)=>{
+        console.log(res)
+    })
+
+    invoke('get_system_info').then((res) => {
+        console.log('系统信息:', res);
+    }
+    ).catch((err) => {
+        console.error('获取系统信息失败:', err);
+    });
+}
 
 export default tauriInvoke;
