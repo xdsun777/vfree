@@ -1,12 +1,11 @@
-<template>
-    <header></header>
-</template>
+<template></template>
 <script>
 export default {
     name: 'headerV',
     data() {
         return {};
     },
+
     methods: {},
 };
 </script>

@@ -54,7 +54,7 @@ export default {
     module: {
         rules: [
             {
-                test: /\.(png|svg|jpg|wasm)$/,
+                test: /\.(png|svg|jpg|wasm|woff2)$/,
                 type: 'asset/resource',
             },
             {
