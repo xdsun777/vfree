@@ -1,0 +1,45 @@
+<template>
+    <footer
+        class="fixed right-0 bottom-0 left-0 z-10 bg-white shadow-md dark:bg-gray-800"
+    >
+        <!-- 新建聊天模态框 -->
+        <NewChatModal
+            v-show="newChatModalStatus"
+            @close="newChatModalStatus = false"
+        ></NewChatModal>
+        <button
+            class="bg-primary-green fixed right-4 bottom-12 flex h-14 w-14 items-center justify-center rounded-full text-white shadow-lg hover:bg-green-600 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-400"
+            @click="newChatModalStatus = true"
+        >
+            <PlusIcon class="h-6 w-6" />
+        </button>
+    </footer>
+</template>
+
+<script>
+import { PlusIcon } from '@heroicons/vue/24/solid'; // 引入加号图标组件
+import NewChatModal from '@components/modal/NewChatModal.vue';
+
+export default {
+    name: 'Footer',
+    data() {
+        return {
+            newChatModalStatus: false, // 控制新建聊天模态框的显示状态
+        };
+    },
+    components: {
+        PlusIcon,
+        NewChatModal,
+    },
+    methods: {
+        openNewChatModal() {
+            this.newChatModalStatus = true; // 打开新建聊天模态框
+        },
+    },
+    mounted() {
+        // 这里可以添加一些初始化逻辑
+    },
+};
+</script>
+
+<style scoped></style>
