@@ -7,25 +7,7 @@
             '-translate-x-full': !menuStatus,
         }"
     >
-        <nav class="p-4">
-            <ul>
-                <li class="py-2">
-                    <a href="#" class="hover:text-primary-green text-gray-700"
-                        >首页</a
-                    >
-                </li>
-                <li class="py-2">
-                    <a href="#" class="hover:text-primary-green text-gray-700"
-                        >分类</a
-                    >
-                </li>
-                <li class="py-2">
-                    <a href="#" class="hover:text-primary-green text-gray-700"
-                        >关于</a
-                    >
-                </li>
-            </ul>
-        </nav>
+        <NavV />
         <button
             class="hover:text-primary-green absolute top-4 right-4 text-gray-500"
             @click="toggleTheme"
@@ -37,6 +19,7 @@
 </template>
 <script>
 import { SunIcon, MoonIcon } from '@heroicons/vue/24/solid';
+import NavV from '@components/layout/NavV.vue';
 
 export default {
     name: 'MenuV',
@@ -78,6 +61,7 @@ export default {
     components: {
         SunIcon,
         MoonIcon,
+        NavV
     },
 };
 </script>
