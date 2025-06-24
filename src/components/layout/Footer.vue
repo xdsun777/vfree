@@ -8,7 +8,7 @@
             @close="newChatModalStatus = false"
         ></NewChatModal>
         <button
-            class="bg-primary-green fixed right-4 bottom-12 flex h-14 w-14 items-center justify-center rounded-full text-white shadow-lg hover:bg-green-600 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-400"
+            class="bg-primary-green dark:bg-primary-dark-1 dark:hover:bg-primary-dark-0 fixed right-4 bottom-12 flex h-14 w-14 items-center justify-center rounded-full text-white shadow-lg hover:bg-green-600 focus:outline-none"
             @click="newChatModalStatus = true"
         >
             <PlusIcon class="h-6 w-6" />
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { PlusIcon } from '@heroicons/vue/24/solid'; // 引入加号图标组件
+import { PlusIcon } from '@heroicons/vue/24/solid';
 import NewChatModal from '@components/modal/NewChatModal.vue';
 
 export default {

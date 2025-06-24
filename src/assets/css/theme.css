@@ -1,5 +1,10 @@
 @theme {
     --color-primary-green: #00a573;
+    --color-primary-dark-0: #636363;
+    --color-primary-dark-1: #252527;
+    --color-primary-dark-2: #262628;
+    --color-primary-dark-3: #181818;
+    --color-primary-dark-4: #0d0d0d;
 }
 /* @custom-variant dark (&:where(.dark, .dark *)); */
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));

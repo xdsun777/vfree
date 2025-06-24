@@ -15,6 +15,7 @@
                 placeholder="请输入聊天ID"
                 v-model="idX"
                 @keyup.enter="connect"
+                @blur="connect"
                 class="mb-4 w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-gray-800 focus:ring-2 focus:ring-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-white"
             />
             <p
