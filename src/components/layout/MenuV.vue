@@ -61,7 +61,7 @@ export default {
     components: {
         SunIcon,
         MoonIcon,
-        NavV
+        NavV,
     },
 };
 </script>

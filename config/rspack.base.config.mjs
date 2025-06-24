@@ -14,7 +14,6 @@ const wasmPath = path.resolve(__dirname, './pkg');
 const wasmExec = fs.existsSync(wasmPath) ? true : false;
 console.log('wasmExec', wasmExec ? 'true' : 'false', wasmPath);
 
-
 export default {
     name: 'base',
     target: 'web',
@@ -53,12 +52,12 @@ export default {
             __VUE_OPTIONS_API__: 'true',
             __VUE_PROD_DEVTOOLS__: 'true',
             __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 'true',
-            __WASM__: wasmExec
+            __WASM__: wasmExec,
         }),
         process.env.RSDOCTOR &&
-        new RsdoctorRspackPlugin({
-            // 插件选项
-        }),
+            new RsdoctorRspackPlugin({
+                // 插件选项
+            }),
     ],
     module: {
         rules: [
