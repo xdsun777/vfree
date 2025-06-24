@@ -1,11 +1,19 @@
+import fs from 'node:fs';
 import path, { dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { rspack } from '@rspack/core';
 import { VueLoaderPlugin } from 'vue-loader';
 import { RsdoctorRspackPlugin } from '@rsdoctor/rspack-plugin';
 
 const __dirname = path.join(dirname(fileURLToPath(import.meta.url)), '../');
 console.log('rspack.base.config.mjs', __dirname);
+const wasmPath = path.resolve(__dirname, './pkg');
+// const wasmExec = fs.existsSync(wasmPath)
+//     ? import(pathToFileURL(path.join(wasmPath, 'rs_wasm.js')))
+//     : false;
+const wasmExec = fs.existsSync(wasmPath) ? true : false;
+console.log('wasmExec', wasmExec ? 'true' : 'false', wasmPath);
+
 
 export default {
     name: 'base',
@@ -32,7 +40,7 @@ export default {
             '@store': path.resolve(__dirname, './src/store'),
             '@apis': path.resolve(__dirname, './src/apis'),
             '@utils': path.resolve(__dirname, './src/utils'),
-            '@wasm-pkg': path.resolve(__dirname, './pkg'),
+            '@wasm': wasmExec ? wasmPath : '',
         },
     },
     plugins: [
@@ -45,11 +53,12 @@ export default {
             __VUE_OPTIONS_API__: 'true',
             __VUE_PROD_DEVTOOLS__: 'true',
             __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 'true',
+            __WASM__: wasmExec
         }),
         process.env.RSDOCTOR &&
-            new RsdoctorRspackPlugin({
-                // 插件选项
-            }),
+        new RsdoctorRspackPlugin({
+            // 插件选项
+        }),
     ],
     module: {
         rules: [
