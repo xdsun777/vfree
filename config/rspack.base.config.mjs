@@ -6,7 +6,6 @@ import { TsCheckerRspackPlugin } from 'ts-checker-rspack-plugin';
 import { VueLoaderPlugin } from 'vue-loader';
 import { RsdoctorRspackPlugin } from '@rsdoctor/rspack-plugin';
 
-
 const __dirname = path.join(dirname(fileURLToPath(import.meta.url)), '../');
 console.log('rspack.base.config.mjs', __dirname);
 const wasmPath = path.resolve(__dirname, './pkg');
@@ -57,9 +56,9 @@ export default {
             __WASM__: wasmExec,
         }),
         process.env.RSDOCTOR &&
-        new RsdoctorRspackPlugin({
-            // 插件选项
-        }),
+            new RsdoctorRspackPlugin({
+                // 插件选项
+            }),
         new TsCheckerRspackPlugin({
             typescript: {
                 configFile: path.resolve(__dirname, './tsconfig.json'),
@@ -143,7 +142,7 @@ export default {
                     },
                 },
                 type: 'javascript/auto',
-            }
+            },
         ],
     },
     devServer: {
