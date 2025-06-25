@@ -21,7 +21,7 @@ import { PlusIcon } from '@heroicons/vue/24/solid';
 import NewChatModal from '@components/modal/NewChatModal.vue';
 
 export default {
-    name: 'Footer',
+    name: 'FooterV',
     data() {
         return {
             newChatModalStatus: false, // 控制新建聊天模态框的显示状态

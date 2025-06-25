@@ -38,7 +38,7 @@
 </template>
 <script lang="js">
 export default {
-    name: 'Mainer',
+    name: 'MainV',
     data() {
         return {};
     },

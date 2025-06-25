@@ -1,17 +1,17 @@
 <template>
     <HeaderV />
-    <MainerV />
+    <MainV />
     <FooterV />
 </template>
 <script>
 import HeaderV from '@components/layout/Header.vue';
-import MainerV from '@components/layout/Mainer.vue';
-import FooterV from '@components/layout/Footer.vue';
+import MainV from '@components/layout/MainV.vue';
+import FooterV from '@components/layout/FooterV.vue';
 export default {
     name: 'HomeView',
     components: {
         HeaderV,
-        MainerV,
+        MainV,
         FooterV,
     },
 };

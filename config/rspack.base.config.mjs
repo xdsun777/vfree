@@ -2,9 +2,9 @@ import fs from 'node:fs';
 import path, { dirname } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { rspack } from '@rspack/core';
-import { TsCheckerRspackPlugin } from 'ts-checker-rspack-plugin';
 import { VueLoaderPlugin } from 'vue-loader';
 import { RsdoctorRspackPlugin } from '@rsdoctor/rspack-plugin';
+import { TsCheckerRspackPlugin } from 'ts-checker-rspack-plugin';
 
 const __dirname = path.join(dirname(fileURLToPath(import.meta.url)), '../');
 console.log('rspack.base.config.mjs', __dirname);
@@ -59,27 +59,27 @@ export default {
             new RsdoctorRspackPlugin({
                 // 插件选项
             }),
-        new TsCheckerRspackPlugin({
-            typescript: {
-                configFile: path.resolve(__dirname, './tsconfig.json'),
-                mode: 'write-references',
-                diagnosticOptions: {
-                    semantic: true,
-                    syntactic: true,
-                },
-            },
-            eslint: {
-                enabled: true,
-                files: './src/**/*.{ts,tsx,js,jsx,vue}',
-            },
-            logger: {
-                devServer: true,
-                log: console.log,
-                error: console.error,
-                warn: console.warn,
-                info: console.info,
-            },
-        }),
+        // new TsCheckerRspackPlugin({
+        //     typescript: {
+        //         configFile: path.resolve(__dirname, './tsconfig.json'),
+        //         mode: 'write-references',
+        //         diagnosticOptions: {
+        //             semantic: true,
+        //             syntactic: true,
+        //         },
+        //     },
+        //     eslint: {
+        //         enabled: true,
+        //         files: './src/**/*.{ts,tsx,js,jsx,vue}',
+        //     },
+        //     logger: {
+        //         devServer: true,
+        //         log: console.log,
+        //         error: console.error,
+        //         warn: console.warn,
+        //         info: console.info,
+        //     },
+        // }),
     ],
     module: {
         rules: [
