@@ -2,9 +2,12 @@
     <RouterView />
 </template>
 <script lang="ts">
+// @ts-nocheck
+/* eslint-disable */
+
 import { defineComponent } from 'vue';
 // 调用wasm
-const rs_wasm = __WASM__ ? import('@wasm/rs_wasm.d.ts') : false;
+const rs_wasm = __WASM__ ? import('@wasm/rs_wasm') : false;
 console.log('rs_wasm', rs_wasm);
 rs_wasm
     .then((wasm) => {

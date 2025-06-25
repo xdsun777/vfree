@@ -3,15 +3,16 @@
     "isolatedModules": true,
     "target": "esnext",
     "module": "esnext",
+    "moduleResolution": "bundler",
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
     "strict": true,
     "jsx": "preserve",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "baseUrl": ".",
-    "moduleResolution": "bundler",
-    "noEmit": true,
-    "allowImportingTsExtensions": true,
+    "types": ["@rspack/core/module"],
     "paths": {
       "@/*": [
         "src/*"

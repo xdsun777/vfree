@@ -19,7 +19,7 @@ if ('__TAURI_INTERNALS__' in window) {
         console.log(res);
     });
 
-    const name:string = '张三';
+    const name: string = '张三';
     async function rs_greet() {
         return await invoke('greet', { name });
     }
