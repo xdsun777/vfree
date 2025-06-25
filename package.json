@@ -27,7 +27,8 @@
     "prod:build": "wasm-pack build --target web --out-dir pkg --out-name rs_wasm --release && set RSPACK_PROFILE=ALL && rspack build --mode=production --config=./config/rspack.prod.config.mjs",
     "analyze": "cross-env RSDOCTOR=true rspack serve --mode=development --config=./config/rspack.dev.config.mjs",
     "lint": "eslint ./src --ext .js,.ts,.mjs,.vue --config eslint.config.js",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "tsConfigCheck": "npx tsc --showConfig"
   },
   "devDependencies": {
     "@eslint/js": "^9.29.0",

@@ -1,9 +1,10 @@
 <template>
     <RouterView />
 </template>
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue';
 // 调用wasm
-const rs_wasm = __WASM__ ? import('@wasm/rs_wasm') : false;
+const rs_wasm = __WASM__ ? import('@wasm/rs_wasm.d.ts') : false;
 console.log('rs_wasm', rs_wasm);
 rs_wasm
     .then((wasm) => {
@@ -14,13 +15,15 @@ rs_wasm
     });
 
 // 调用tauri 后端api,直接获取结果
-import tauriInvoke from '@utils/tauri.invoke.js';
+import('@utils/tauri.invoke.ts');
 
 // 调用浏览器脚本
-import getSystemType from '@utils/system.js';
+import getSystemType from '@/utils/system.ts';
 console.log(getSystemType());
 
-export default {};
+export default defineComponent({
+    name: 'App',
+});
 </script>
 <style>
 @import 'tailwindcss';

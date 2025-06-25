@@ -3,7 +3,7 @@
     <MainV />
     <FooterV />
 </template>
-<script>
+<script lang="ts">
 import HeaderV from '@components/layout/Header.vue';
 import MainV from '@components/layout/MainV.vue';
 import FooterV from '@components/layout/FooterV.vue';

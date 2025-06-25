@@ -1,4 +1,4 @@
-function getSystemType() {
+function getSystemType(): string {
     const userAgent = navigator.userAgent.toLowerCase();
     if (
         userAgent.indexOf('Android') !== -1 ||

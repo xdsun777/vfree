@@ -1,10 +1,11 @@
 import fs from 'node:fs';
+import process from 'node:process';
 import path, { dirname } from 'node:path';
-import { fileURLToPath, pathToFileURL } from 'node:url';
+import { fileURLToPath } from 'node:url';
 import { rspack } from '@rspack/core';
 import { VueLoaderPlugin } from 'vue-loader';
 import { RsdoctorRspackPlugin } from '@rsdoctor/rspack-plugin';
-import { TsCheckerRspackPlugin } from 'ts-checker-rspack-plugin';
+// import { TsCheckerRspackPlugin } from 'ts-checker-rspack-plugin';
 
 const __dirname = path.join(dirname(fileURLToPath(import.meta.url)), '../');
 console.log('rspack.base.config.mjs', __dirname);
@@ -20,7 +21,7 @@ export default {
     target: 'web',
     context: __dirname,
     entry: {
-        page: path.join(__dirname, './src/main.js'),
+        page: path.join(__dirname, './src/main.ts'),
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
