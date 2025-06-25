@@ -2,8 +2,10 @@ import fs from 'node:fs';
 import path, { dirname } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { rspack } from '@rspack/core';
+import { TsCheckerRspackPlugin } from 'ts-checker-rspack-plugin';
 import { VueLoaderPlugin } from 'vue-loader';
 import { RsdoctorRspackPlugin } from '@rsdoctor/rspack-plugin';
+
 
 const __dirname = path.join(dirname(fileURLToPath(import.meta.url)), '../');
 console.log('rspack.base.config.mjs', __dirname);
@@ -55,9 +57,30 @@ export default {
             __WASM__: wasmExec,
         }),
         process.env.RSDOCTOR &&
-            new RsdoctorRspackPlugin({
-                // 插件选项
-            }),
+        new RsdoctorRspackPlugin({
+            // 插件选项
+        }),
+        new TsCheckerRspackPlugin({
+            typescript: {
+                configFile: path.resolve(__dirname, './tsconfig.json'),
+                mode: 'write-references',
+                diagnosticOptions: {
+                    semantic: true,
+                    syntactic: true,
+                },
+            },
+            eslint: {
+                enabled: true,
+                files: './src/**/*.{ts,tsx,js,jsx,vue}',
+            },
+            logger: {
+                devServer: true,
+                log: console.log,
+                error: console.error,
+                warn: console.warn,
+                info: console.info,
+            },
+        }),
     ],
     module: {
         rules: [
@@ -104,6 +127,23 @@ export default {
                 },
                 type: 'javascript/auto',
             },
+            {
+                test: /\.ts$/,
+                exclude: [/node_modules/, /dist/],
+                loader: 'builtin:swc-loader',
+                options: {
+                    // Enable source map
+                    sourceMap: true,
+                    jsc: {
+                        parser: {
+                            syntax: 'typescript',
+                            tsx: true,
+                        },
+                        preserveAllComments: false,
+                    },
+                },
+                type: 'javascript/auto',
+            }
         ],
     },
     devServer: {
