@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig, AxiosInstance, AxiosResponse } from 'axios';
 
-const config = {
+const config:AxiosRequestConfig = {
     baseURL: 'http://127.0.0.1:3000',
     headers: { 'X-Requested-With': 'XMLHttpRequest' },
     timeout: 3000,
@@ -8,11 +8,11 @@ const config = {
     withCredentials: false, // default
 };
 
-let pendingRequest = new Map();
+const pendingRequest = new Map();
 
 // 生成请求的key
-function getRequestKey(config) {
-    let { method, url, params, data } = config;
+function getRequestKey(config: AxiosRequestConfig): string {
+    const { method, url, params, data } = config;
     // axios中取消请求及阻止重复请求的方法
     // 参数相同时阻止重复请求：
     // return [method, url, JSON.stringify(params), JSON.stringify(data)].join("&");
@@ -31,9 +31,10 @@ function getRequestKey(config) {
     return [method, url].join('&');
 }
 
-function addPendingRequest(config) {
+// 添加请求到 pendingRequest
+function addPendingRequest(config: AxiosRequestConfig):void {
     // console.log(config.url)
-    let requestKey = getRequestKey(config);
+    const requestKey = getRequestKey(config);
     config.cancelToken =
         config.cancelToken ||
         new axios.CancelToken((cancel) => {
@@ -43,42 +44,42 @@ function addPendingRequest(config) {
         });
 }
 
-function removePendingRequest(config) {
-    let requestKey = getRequestKey(config);
+// 移除 pendingRequest 中的请求
+function removePendingRequest(config: AxiosRequestConfig):void {
+    const requestKey = getRequestKey(config);
     if (pendingRequest.has(requestKey)) {
         // 如果是重复的请求，则执行对应的cancel函数
-        let cancel = pendingRequest.get(requestKey);
-        cancel(requestKey);
+        const cancel = pendingRequest.get(requestKey);
+        if (cancel) cancel(requestKey);
         // 将前一次重复的请求移除
         pendingRequest.delete(requestKey);
     }
 }
 
 // axios实例rs
-const rs = axios.create(config);
+const rs: AxiosInstance = axios.create(config);
 
-// 请求拦截器
+// 请求拦截器：防止重复请求
 rs.interceptors.request.use(
-    function (config) {
+    (config)=> {
         // 检查是否存在重复请求，若存在则取消已发的请求
         removePendingRequest(config);
         // 把当前请求信息添加到pendingRequest对象中
         addPendingRequest(config);
         return config;
     },
-    function (error) {
+    (error)=> {
         return Promise.reject(error);
     },
 );
 
-// 响应拦截器
+// 响应拦截器：移除已完成请求
 rs.interceptors.response.use(
-    function (response) {
-        console.log('拿到了数据', response.data);
+    (response:AxiosResponse)=> {
         removePendingRequest(response.config);
         return response.data;
     },
-    function (error) {
+    (error)=> {
         // 从pendingRequest对象中移除请求
         removePendingRequest(error.config || {});
         if (axios.isCancel(error)) {
@@ -87,5 +88,4 @@ rs.interceptors.response.use(
         return Promise.reject(error);
     },
 );
-rs.get();
 export default rs;
