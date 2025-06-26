@@ -16,30 +16,29 @@
     </footer>
 </template>
 
-<script>
+<script setup lang="ts">
+import { ref } from 'vue';
 import { PlusIcon } from '@heroicons/vue/24/solid';
 import NewChatModal from '@components/modal/NewChatModal.vue';
-
-export default {
-    name: 'FooterV',
-    data() {
-        return {
-            newChatModalStatus: false, // 控制新建聊天模态框的显示状态
-        };
-    },
-    components: {
-        PlusIcon,
-        NewChatModal,
-    },
-    methods: {
-        openNewChatModal() {
-            this.newChatModalStatus = true; // 打开新建聊天模态框
-        },
-    },
-    mounted() {
-        // 这里可以添加一些初始化逻辑
-    },
-};
+// 控制新建聊天模态框的显示状态
+const newChatModalStatus = ref(false);
+// export default {
+//     name: 'FooterV',
+//     data() {
+//         return {
+//             newChatModalStatus: false, // 控制新建聊天模态框的显示状态
+//         };
+//     },
+//     components: {
+//         PlusIcon,
+//         NewChatModal,
+//     },
+//     methods: {
+//         openNewChatModal() {
+//             this.newChatModalStatus = true; // 打开新建聊天模态框
+//         },
+//     },
+// };
 </script>
 
 <style scoped></style>

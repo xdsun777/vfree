@@ -36,12 +36,6 @@
         </div>
     </main>
 </template>
-<script lang="js">
-export default {
-    name: 'MainV',
-    data() {
-        return {};
-    },
-};
+<script setup lang="ts">
 </script>
 <style scoped></style>
