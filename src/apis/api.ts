@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosInstance, AxiosResponse } from 'axios';
 
-const config:AxiosRequestConfig = {
+const config: AxiosRequestConfig = {
     baseURL: 'http://127.0.0.1:3000',
     headers: { 'X-Requested-With': 'XMLHttpRequest' },
     timeout: 3000,
@@ -32,7 +32,7 @@ function getRequestKey(config: AxiosRequestConfig): string {
 }
 
 // 添加请求到 pendingRequest
-function addPendingRequest(config: AxiosRequestConfig):void {
+function addPendingRequest(config: AxiosRequestConfig): void {
     // console.log(config.url)
     const requestKey = getRequestKey(config);
     config.cancelToken =
@@ -45,7 +45,7 @@ function addPendingRequest(config: AxiosRequestConfig):void {
 }
 
 // 移除 pendingRequest 中的请求
-function removePendingRequest(config: AxiosRequestConfig):void {
+function removePendingRequest(config: AxiosRequestConfig): void {
     const requestKey = getRequestKey(config);
     if (pendingRequest.has(requestKey)) {
         // 如果是重复的请求，则执行对应的cancel函数
@@ -61,25 +61,25 @@ const rs: AxiosInstance = axios.create(config);
 
 // 请求拦截器：防止重复请求
 rs.interceptors.request.use(
-    (config)=> {
+    (config) => {
         // 检查是否存在重复请求，若存在则取消已发的请求
         removePendingRequest(config);
         // 把当前请求信息添加到pendingRequest对象中
         addPendingRequest(config);
         return config;
     },
-    (error)=> {
+    (error) => {
         return Promise.reject(error);
     },
 );
 
 // 响应拦截器：移除已完成请求
 rs.interceptors.response.use(
-    (response:AxiosResponse)=> {
+    (response: AxiosResponse) => {
         removePendingRequest(response.config);
         return response.data;
     },
-    (error)=> {
+    (error) => {
         // 从pendingRequest对象中移除请求
         removePendingRequest(error.config || {});
         if (axios.isCancel(error)) {
