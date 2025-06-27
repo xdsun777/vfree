@@ -57,9 +57,9 @@ export default {
             __WASM__: wasmExec,
         }),
         process.env.RSDOCTOR &&
-        new RsdoctorRspackPlugin({
-            // 插件选项
-        }),
+            new RsdoctorRspackPlugin({
+                // 插件选项
+            }),
         // new TsCheckerRspackPlugin({
         //     typescript: {
         //         configFile: path.resolve(__dirname, './tsconfig.json'),
