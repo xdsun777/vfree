@@ -41,59 +41,66 @@
         </div>
     </div>
 </template>
-<script lang="js">
-export default {
-    name: 'NewChatModal',
-    data() {
-        return {
-            tipMessage: {
+
+<script setup lang="ts">
+import { ref, computed } from 'vue';
+type TipType = 'info' | 'success' | 'error';
+interface TipMessage {
+    text: string;
+    type: TipType;
+    style: string;
+}
+
+// 聊天ID输入
+const idX = ref<string>('');
+
+// 提示信息
+const tipMessage = ref<TipMessage>({
+    text: '请输入聊天ID',
+    type: 'info',
+    style: 'text-gray-600 dark:text-gray-400',
+});
+
+// 关闭模态框事件
+const emit = defineEmits<{
+    (e: 'close'): void;
+}>();
+
+function closeModal() {
+    idX.value = '';
+    emit('close');
+}
+
+function connect() {
+    if (idX.value.trim() === '') {
+        tipMessage.value.type = 'info';
+    } else if (idX.value.length < 5) {
+        tipMessage.value.type = 'error';
+    } else {
+        tipMessage.value.type = 'success';
+        // 这里可以添加连接逻辑
+    }
+}
+
+// 计算属性：根据类型返回不同的提示内容和样式
+const choseTipMessage = computed(() => {
+    switch (tipMessage.value.type) {
+        case 'success':
+            return {
+                text: '连接成功',
+                style: 'text-primary-green dark:text-primary-green',
+            };
+        case 'error':
+            return {
+                text: '聊天ID长度不能小于5',
+                style: 'text-red-500 dark:text-red-400',
+            };
+        default:
+            return {
                 text: '请输入聊天ID',
-                type: 'info', // 可以是 'info', 'success', 'error' 'null'等
                 style: 'text-gray-600 dark:text-gray-400',
-            },
-            idX: '',
-        };
-    },
-    emits: ['close'],
-    methods: {
-        closeModal() {
-            this.idX = ''; // 清空输入框
-            this.$emit('close');
-        },
-        connect() {
-            if (this.idX.trim() === '') {
-                this.tipMessage.type = 'info';
-            } else if (this.idX.length < 5) {
-                this.tipMessage.type = 'error';
-            } else {
-                this.tipMessage.type = 'success';
-                // 这里可以添加连接逻辑
-            }
-        },
-    },
-    computed: {
-        // 可以添加计算属性来处理数据
-        choseTipMessage() {
-            if (this.tipMessage.type === 'info') {
-                return {
-                    text: '请输入聊天ID',
-                    style: 'text-gray-600 dark:text-gray-400',
-                };
-            } else if (this.tipMessage.type === 'success') {
-                return {
-                    text: '连接成功',
-                    style: 'text-primary-green dark:text-primary-green',
-                };
-            } else if (this.tipMessage.type === 'error') {
-                return {
-                    text: '聊天ID长度不能小于5',
-                    style: 'text-red-500 dark:text-red-400',
-                };
-            } else {
-                return '请输入聊天ID';
-            }
-        },
-    },
-};
+            };
+    }
+});
 </script>
 <style scoped></style>

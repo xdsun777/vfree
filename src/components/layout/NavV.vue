@@ -19,8 +19,4 @@
         </ul>
     </nav>
 </template>
-<script>
-export default {
-    name: 'NavV',
-};
-</script>
+<script setup lang="ts"></script>

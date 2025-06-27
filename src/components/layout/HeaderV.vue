@@ -42,7 +42,8 @@
     <MenuModal v-show="MStatus" @click="changeMenuStatus" />
     <MenuV v-show="MStatus" :menuStatus="MStatus" />
 </template>
-<script>
+<script setup lang="ts">
+import { ref } from 'vue';
 import {
     MagnifyingGlassIcon,
     Bars3Icon,
@@ -50,34 +51,19 @@ import {
 } from '@heroicons/vue/24/solid';
 import MenuV from '@components/layout/MenuV.vue';
 import MenuModal from '@components/modal/MenuModal.vue';
-export default {
-    name: 'HeaderV',
-    data() {
-        return {
-            searchStatus: false,
-            MStatus: false,
-        };
-    },
-    methods: {
-        changeMenuStatus() {
-            // 更新菜单状态
-            console.log('Menu MStatus changed:', this.MStatus);
 
-            this.MStatus = !this.MStatus;
-        },
-        search() {
-            // 处理搜索逻辑
-            console.log('Search clicked');
-            this.searchStatus = true;
-        },
-    },
-    components: {
-        MagnifyingGlassIcon,
-        Bars3Icon,
-        ArrowLeftIcon,
-        MenuV,
-        MenuModal,
-    },
-};
+const searchStatus = ref<boolean>(false);
+const MStatus = ref<boolean>(false);
+
+function changeMenuStatus() {
+    // 更新菜单状态
+    console.log('Menu MStatus changed:', MStatus.value);
+    MStatus.value = !MStatus.value;
+}
+function search() {
+    // 处理搜索逻辑
+    console.log('Search clicked');
+    searchStatus.value = true;
+}
 </script>
 <style scoped></style>
