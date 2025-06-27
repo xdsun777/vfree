@@ -26,7 +26,7 @@ onMounted(() => {
     // 调用浏览器脚本
     const System = import('@/utils/system.ts');
     System.then((sys) => {
-        console.log("system js output:",sys.default());
+        console.log('system js output:', sys.default());
     }).catch((e) => {
         console.error('System script error', e);
     });
@@ -34,16 +34,18 @@ onMounted(() => {
     // 调用axios请求json-server 示例
     const rs = import('@apis/api.ts');
     rs.then((api) => {
-        api.default.get('/get').then((response) => {
-            console.log('API response:', response);
-        }).catch((error) => {
-            console.error('API error:', error);
-        });
+        api.default
+            .get('/get')
+            .then((response) => {
+                console.log('API response:', response);
+            })
+            .catch((error) => {
+                console.error('API error:', error);
+            });
     }).catch((e) => {
         console.error('API script error', e);
     });
 });
-
 </script>
 <style>
 @import 'tailwindcss';
