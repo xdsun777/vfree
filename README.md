@@ -37,13 +37,15 @@ p2p加密无服务器即时通讯程序
 
 ## 部署
 
-### 环境安装
+### 环境依赖
 
 ```powershell
 winget install "NVM for Windows"
 nvm install 20.15.1
 nvm use 20.15.1
-# rust安装参照：https://www.rust-lang.org/zh-CN/tools/install
+# rust：https://www.rust-lang.org/zh-CN/tools/install
+# tauri: https://v2.tauri.app/zh-cn/start/prerequisites/
+rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
 ```
 
 涉及`tauri`请[参考](https://tauri.nodejs.cn/start/prerequisites/)
@@ -57,6 +59,8 @@ cd vfree
 npm install
 npm run dev:serve
 
+cargo install wasm-pack
+cargo install tauri-cli --version "^2.0.0" --locked
 cargo install
 # 若安装rust可运行，不运行暂时不会有影响
 npm run wasm:build
@@ -76,5 +80,3 @@ cargo tauri android build
 ### 签名
 
 [https://v2.tauri.app/distribute/sign/android/](https://v2.tauri.app/distribute/sign/android/)
-
-
