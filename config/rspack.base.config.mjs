@@ -60,27 +60,6 @@ export default {
         new RsdoctorRspackPlugin({
             // 插件选项
         }),
-        // new TsCheckerRspackPlugin({
-        //     typescript: {
-        //         configFile: path.resolve(__dirname, './tsconfig.json'),
-        //         mode: 'write-references',
-        //         diagnosticOptions: {
-        //             semantic: true,
-        //             syntactic: true,
-        //         },
-        //     },
-        //     eslint: {
-        //         enabled: true,
-        //         files: './src/**/*.{ts,tsx,js,jsx,vue}',
-        //     },
-        //     logger: {
-        //         devServer: true,
-        //         log: console.log,
-        //         error: console.error,
-        //         warn: console.warn,
-        //         info: console.info,
-        //     },
-        // }),
     ],
     module: {
         rules: [
@@ -148,7 +127,7 @@ export default {
     },
     devServer: {
         allowedHosts: ['.localhost'],
-        open: true,
+        open: false,
         watchFiles:['src/**','pkg/**']
     },
     //调试：该选项用于控制 Source Map 的生成行为。
