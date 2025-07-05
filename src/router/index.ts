@@ -3,13 +3,13 @@ import HomeView from '@views/HomeView.vue';
 import TestV  from '@views/TestV.vue';
 
 const routes = [
-    { path: '/', component: HomeView },
+    { path: '/test', component: HomeView },
     {
         path: '/chat/:id',
         component: () => import('@views/ChatTalk.vue')
     },
     {
-        path: '/test',
+        path: '/',
         component: TestV
     }
 ];

@@ -1,52 +1,30 @@
 <template>
-    <button id="connectButton" name="connectButton" class="buttonleft">
-        Connect
-    </button>
-    <button id="disconnectButton" name="disconnectButton" class="buttonright" disabled>
-        Disconnect
-    </button>
-
-    <div class="messagebox">
-        <label for="message">Enter a message:
-            <input type="text" name="message" id="message" placeholder="Message text" inputmode="latin" size="60"
-                maxlength="120" disabled />
-        </label>
-        <button id="sendButton" name="sendButton" class="buttonright" disabled>
-            Send
-        </button>
-    </div>
-    <div class="messagebox" id="receivebox">
-        <p>Messages received:</p>
-    </div>
-
-    <RouterLink to="/">首页</RouterLink>
+    <h1 style="align-self: center;">测试</h1>
+    <br>
+    <video></video>
 </template>
 
 <script setup lang="ts">
-let connectButton = null;
-let disconnectButton = null;
-let sendButton = null;
-let messageInputBox = null;
-let receiveBox = null;
+// 想要获取一个最接近 1280x720 的相机分辨率
+var constraints = { audio: true, video: { width: 1280, height: 720 } };
 
-let localConnection = null; // RTCPeerConnection for our "local" connection
-let remoteConnection = null; // RTCPeerConnection for the "remote"
+navigator.mediaDevices
+  .getUserMedia(constraints)
+  .then(function (mediaStream) {
+    var video = document.querySelector("video");
+    video.srcObject = mediaStream;
+    video.onloadedmetadata = function (e) {
+      video.play();
+    };
+  })
+  .catch(function (err) {
+    console.log(err.name + ": " + err.message);
+  }); // 总是在最后检查错误
 
-let sendChannel = null; // RTCDataChannel for the local (sender)
-let receiveChannel = null; // RTCDataChannel for the remote (receiver)
+  var enumeratorPromise = navigator.mediaDevices.enumerateDevices();
+enumeratorPromise.then((c) => {
+    console.log(c);
+})
 
-function startup() {
-  connectButton = document.getElementById("connectButton");
-  disconnectButton = document.getElementById("disconnectButton");
-  sendButton = document.getElementById("sendButton");
-  messageInputBox = document.getElementById("message");
-  receiveBox = document.getElementById("receivebox");
-
-  // Set event listeners for user interface widgets
-
-  connectButton.addEventListener("click", connectPeers, false);
-  disconnectButton.addEventListener("click", disconnectPeers, false);
-  sendButton.addEventListener("click", sendMessage, false);
-}
 
 </script>
