@@ -57,9 +57,9 @@ export default {
             __WASM__: wasmExec,
         }),
         process.env.RSDOCTOR &&
-            new RsdoctorRspackPlugin({
-                // 插件选项
-            }),
+        new RsdoctorRspackPlugin({
+            // 插件选项
+        }),
         // new TsCheckerRspackPlugin({
         //     typescript: {
         //         configFile: path.resolve(__dirname, './tsconfig.json'),
@@ -148,11 +148,8 @@ export default {
     },
     devServer: {
         allowedHosts: ['.localhost'],
-        //client: {
-        //    logging: 'log', // 控制台日志级别
-        //    overlay: true, // 是否在浏览器中显示错误
-        //    progress: true, // 是否在浏览器中显示打包进度
-        //}
+        open: true,
+        watchFiles:['src/**','pkg/**']
     },
     //调试：该选项用于控制 Source Map 的生成行为。
     devtool: 'source-map',

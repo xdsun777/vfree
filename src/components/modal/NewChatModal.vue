@@ -3,7 +3,7 @@
         class="bg-gray bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center"
     >
         <div
-            class="w-11/12 max-w-md rounded-lg bg-white p-6 shadow-xl dark:bg-gray-800"
+            class="w-11/12 max-w-md rounded-lg bg-white p-6 shadow-xl dark:bg-primary-dark-3"
         >
             <h2
                 class="mb-4 text-xl font-semibold text-gray-800 dark:text-white"

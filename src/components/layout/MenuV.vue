@@ -1,7 +1,7 @@
 <template>
     <!-- 左侧菜单 -->
     <div
-        class="dark:bg-primary-dark-2 fixed top-0 left-0 z-30 h-full w-64 transform bg-white shadow-lg transition-transform"
+        class="dark:bg-primary-dark-2 fixed top-0 left-0 z-30 h-full w-64 transform bg-white shadow-lg transition-transform duration-300 ease-in-out"
         :class="{
             'translate-x-0': menuStatus,
             '-translate-x-full': !menuStatus,
@@ -38,10 +38,13 @@ onMounted(() => {
 });
 
 function updateDarkClass() {
+    // 切换主题
+    const htmlEl = document.querySelector('html');
+    if (!htmlEl) return;
     if (themeStatusIsLight.value) {
-        document.querySelector('html').setAttribute('data-theme', 'light');
+        htmlEl.setAttribute('data-theme', 'light');
     } else {
-        document.querySelector('html').setAttribute('data-theme', 'dark');
+        htmlEl.setAttribute('data-theme', 'dark');
     }
 }
 
@@ -51,6 +54,8 @@ function toggleTheme() {
     updateDarkClass();
     localStorage.setItem('themeIsLight', themeStatusIsLight.value.toString());
 }
+
+
 </script>
 
 <style scoped></style>

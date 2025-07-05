@@ -40,10 +40,9 @@
     </header>
     <!-- 菜单遮罩 -->
     <MenuModal v-show="MStatus" @click="changeMenuStatus" />
-    <MenuV v-show="MStatus" :menuStatus="MStatus" />
+    <MenuV v-show="MStatus" :menuStatus="MStatus"/>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue';
 import {
     MagnifyingGlassIcon,
     Bars3Icon,
@@ -51,6 +50,7 @@ import {
 } from '@heroicons/vue/24/solid';
 import MenuV from '@components/layout/MenuV.vue';
 import MenuModal from '@components/modal/MenuModal.vue';
+import { ref } from 'vue';
 
 const searchStatus = ref<boolean>(false);
 const MStatus = ref<boolean>(false);
